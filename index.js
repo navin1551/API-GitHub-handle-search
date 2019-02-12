@@ -9,19 +9,15 @@ function searchButtonHandle() {
 }
 
 
-
-
 //function to retrieve the data using API request 
 function getUserData() {
     let userInput = $('#user-selection').val();
     let url = `https://api.github.com/users/${userInput}/repos`
     fetch(url)
         .then(response => response.json())
-        .then(responseJson => console.log(responseJson));
+        .then(responseJson => {console.log(responseJson), displayUserData(responseJson)});
         $('.results-area').show();
 }
-
-
 
 
 
@@ -29,10 +25,13 @@ function getUserData() {
 function displayUserData(responseJson) {
     for (let i = 0; i < responseJson.length; i++) {
         $('.info-list').append(
-            
+            `<li>
+                <h3>Name: ${responseJson[i].name}
+                <a href= "${responseJson[i].html_url}" target="_blank">Link</a></h3>
+            </li>`
         )
     }
-}
+};
 
 
 
